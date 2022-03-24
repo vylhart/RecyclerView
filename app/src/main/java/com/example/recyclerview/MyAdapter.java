@@ -31,6 +31,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         String text = mList.get(position);
         holder.textView.setText(text);
+        holder.textView.setOnClickListener(view -> {
+            removeItem(position);
+        });
+    }
+
+    public void removeItem(int position){
+        Log.d(TAG, "removeItem: "+mList.get(position)+" "+position);
+        mList.remove(position);
+        //Log.d(TAG, "removeItem: "+mList);
+
+        // fixed bug
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, getItemCount());
     }
 
     @Override
